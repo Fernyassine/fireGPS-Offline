@@ -1,17 +1,9 @@
 var width  = 600,
-	height = 400;		
-
-var xml = Fichier('./assets/data/map.osm');   
-        
-var geojson = JSON.stringify(osmtogeojson(xml));
-
-var blob = new Blob([geojson], {type: "application/json"});
-var url = URL.createObjectURL(blob);
-
-var a = document.createElement('a');
-a.download = "map.json";
-a.href = url;
-a.textContent = "Dl map.json"; 
+	height = 400;
+			
+var map = L.map('mapid').setView([51.505, -0.09], 13);
+	
+L.tileLayer('./assets/Tiles/{z}/{x}/{y}.png', {maxzoom: 16}).addTo(map);
 	
 var projection = d3.geo.mercator()
 					   .translate([0, 0])
@@ -41,33 +33,10 @@ d3.json("./assets/data/regions.geojson", function(json) {
 		.data(json.features)
 		.enter()
 		.append("path")
-		.attr("class", function(d) { return d.properties.type; })
-		.attr("class", function(d) { return d.geometry.type; })
-		.attr("d", path);
-		//.style("fill", "steelblue");	
+		.attr("d", path)
+		.style("fill", "steelblue");	
 });
 
 function zoom() {
   svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-}
-
-function Fichier(fichier)
-{
-    if(window.XMLHttpRequest) 
-        obj = new XMLHttpRequest(); //Pour Firefox, Opera,...
-    else if(window.ActiveXObject) 
-        obj = new ActiveXObject("Microsoft.XMLHTTP"); //Pour Internet Explorer 
-    else 
-        return(false);
-
-    if (obj.overrideMimeType) 
-        obj.overrideMimeType("text/xml"); //Évite un bug de Safari
-
-    obj.open("GET", fichier, false);
-    obj.send(null);
-
-    if(obj.readyState == 4) 
-        return(obj.responseText);
-    else 
-        return(false);
 }
