@@ -1,3 +1,17 @@
+var xml = Fichier('.assets/data/map.osm');   
+        
+var geojson = osm2geo(xml);
+
+console.log(geojson);
+
+var blob = new Blob([geojson], {type: "application/json"});
+var url = URL.createObjectURL(blob);
+
+var a = document.createElement('a');
+a.download = "map.geojson";
+a.href = url;
+a.textContent = "Dl map.json"; 
+
 var width  = 600,
 	height = 400;
 			
@@ -39,4 +53,25 @@ d3.json("./assets/data/regions.geojson", function(json) {
 
 function zoom() {
   svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+function Fichier(fichier)
+{
+    if(window.XMLHttpRequest) 
+        obj = new XMLHttpRequest(); //Pour Firefox, Opera,...
+    else if(window.ActiveXObject) 
+        obj = new ActiveXObject("Microsoft.XMLHTTP"); //Pour Internet Explorer 
+    else 
+        return(false);
+
+    if (obj.overrideMimeType) 
+        obj.overrideMimeType("text/xml"); //Évite un bug de Safari
+
+    obj.open("GET", fichier, false);
+    obj.send(null);
+
+    if(obj.readyState == 4) 
+        return(obj.responseText);
+    else 
+        return(false);
 }
