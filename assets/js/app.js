@@ -8,6 +8,7 @@ var map, featureList,locationLat,locationLng,geolocation;
 $(document).ready(function() 
 {
 			
+
 	$(".leaflet-routing-alternatives-container").click
 	(
 		function() 
@@ -492,6 +493,8 @@ function search_adresse(adresse)
 	var masquer = document.getElementById('results'); 
 	var demasquer = document.getElementById('suggestions');  
 	
+    //FY - Ici rajouter test pour vérifier si la map existe en interne, sinon récupérer depuis le net et telecharger sur la carte sd
+    
 	$.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + adresse, function(data) 
 	{
 		masquer.style.display="";
@@ -512,7 +515,9 @@ function search_adresse(adresse)
 		  );
 		  
 		});
-		  
+        
+        
+        
 		$('#results').empty();
 		if (items.length != 0) 
 		{
@@ -542,6 +547,8 @@ function chargement()
 	lng=document.getElementById('lng').value;
 	
 	chooseAdresse(lat, lng, adresse);
+    
+    console.log("test" + mapquestOSM);
 }
 
 // url
@@ -603,6 +610,7 @@ function chooseAdresse(lat, lng, type) {
             else
             {
                 alert('Pour vous indiquer le chemin vers ce lieu vous devez d abord vous geolocaliser');
+                //FY - SI non géolocaliser, on regarde si les cartes sont sur la carte SD
             }
       
       }

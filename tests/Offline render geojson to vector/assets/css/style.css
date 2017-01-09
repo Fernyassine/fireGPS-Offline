@@ -1,0 +1,33 @@
+#mapid { 
+	width: 600px;
+	height: 400px;
+	position:absolute; 
+	top:0; 
+	bottom:0;
+}  
+
+body { 
+	margin:0; 
+	padding:0; 
+}
+
+path {
+          stroke: #000;
+          stroke-width: 0.01px;
+        }
+
+
+		
+.path {
+	cursor: pointer;
+}
+
+.path:hover {
+	fill: #386cb0;
+}
+
+.tooltip {
+	position: absolute;
+	top:10px;
+	left:10px;
+}

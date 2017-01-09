@@ -77,6 +77,7 @@
                   <li><a href="data/subways.geojson" download="subways.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Métros</a></li>
                   <li><a href="data/DOITT_THEATER_01_13SEPT2010.geojson" download="theaters.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Théâtres</a></li>
                   <li><a href="data/DOITT_MUSEUM_01_13SEPT2010.geojson" download="museums.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Musées</a></li>
+                  <li><a href="" download="" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>Cartes</a></li>
                 </ul>
             </li>
           </ul>
@@ -172,6 +173,31 @@
                 <p>Les musées<a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank"> de Paris</a></p>
               </div>
             </div>
+              
+              
+              
+              <!-- Test -->
+              <div>
+              	<tr><td>Text to Save:</td></tr>
+                <tr>
+                    <td colspan="3">
+                        <textarea id="inputTextToSave" style="width:512px;height:256px"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Filename to Save As:</td>
+                    <td><input id="inputFileNameToSaveAs"></input></td>
+                    <td><button onclick="saveTextAsFile()">Save Text to File</button></td>
+                </tr>
+                <tr>
+                    <td>Select a File to Load:</td>
+                    <td><input type="file" id="fileToLoad"></td>
+                    <td><button onclick="loadFileAsText()">Load Selected File</button><td>
+                </tr>
+            </div>
+              
+              <!-- FIN Test -->
+              
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
