@@ -492,10 +492,21 @@ function search_adresse(adresse)
 	start_img.src = 'assets/img/mic.gif';
 	var masquer = document.getElementById('results'); 
 	var demasquer = document.getElementById('suggestions');  
-	
-    //FY - Ici rajouter test pour vérifier si la map existe en interne, sinon récupérer depuis le net et telecharger sur la carte sd
     
-	$.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + adresse, function(data) 
+        /*//FY - Ici rajouter test pour vérifier si la map existe en interne, sinon récupérer depuis le net et telecharger sur la carte sd        
+        var xml = Fichier('./data/map.osm');   
+        
+        var geojson = JSON.stringify(osm_geojson.osm2geojson(xml));
+    
+        var blob = new Blob([geojson], {type: "application/json"});
+        var url = URL.createObjectURL(blob);
+    
+        var a = document.createElement('a');
+        a.download = "map.json";
+        a.href = url;
+        a.textContent = "Dl map.json";   */
+    
+	$.getJSON('./data/map.json', function(data) 
 	{
 		masquer.style.display="";
 		demasquer.style.display="";
@@ -515,9 +526,7 @@ function search_adresse(adresse)
 		  );
 		  
 		});
-        
-        
-        
+                
 		$('#results').empty();
 		if (items.length != 0) 
 		{
@@ -532,8 +541,30 @@ function search_adresse(adresse)
 		  $('<li>', { html: "No results found" }).appendTo('#results');
 		}
 	});
-  
 }
+
+function Fichier(fichier)
+{
+    if(window.XMLHttpRequest) 
+        obj = new XMLHttpRequest(); //Pour Firefox, Opera,...
+    else if(window.ActiveXObject) 
+        obj = new ActiveXObject("Microsoft.XMLHTTP"); //Pour Internet Explorer 
+    else 
+        return(false);
+
+    if (obj.overrideMimeType) 
+        obj.overrideMimeType("text/xml"); //Évite un bug de Safari
+
+    obj.open("GET", fichier, false);
+    obj.send(null);
+
+    if(obj.readyState == 4) 
+        return(obj.responseText);
+    else 
+        return(false);
+}
+
+
 
 // chargement de la page
 /**********************************************************/
@@ -547,8 +578,6 @@ function chargement()
 	lng=document.getElementById('lng').value;
 	
 	chooseAdresse(lat, lng, adresse);
-    
-    console.log("test" + mapquestOSM);
 }
 
 // url
@@ -623,8 +652,8 @@ function chooseAdresse(lat, lng, type) {
 /*************************************************************/
 /*************************************************************/
 
-/*Routage
-var map = L.map('map');
+//Routage
+/*var map = L.map('map');
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
@@ -637,3 +666,43 @@ L.Routing.control({
     ],
     routeWhileDragging: true
 }).addTo(map);*/
+
+//On ajoute un évènement sur les liens vers les cartes chargées
+function loadMap(id) {     
+    var json = Fichier("./data/" + id);   
+
+    var desc = JSON.parse(json);
+
+    map.setView(new L.LatLng(desc["lat"],desc["lng"]), desc["zoom"]);
+
+    //Permet de determiner les limites de la carte
+    //map.bounds = [], 
+    //map.setMaxBounds(map.getBounds());*/
+
+    //Zoom min et max en fonction des tuiles téléchargées
+    //map.options.minZoom = desc["minzoom"];
+    //map.options.maxZoom = desc["maxzoom"];
+
+    L.tileLayer('./data/Tiles/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
+}
+
+function Fichier(fichier)
+{
+    if(window.XMLHttpRequest) 
+        obj = new XMLHttpRequest(); //Pour Firefox, Opera,...
+    else if(window.ActiveXObject) 
+        obj = new ActiveXObject("Microsoft.XMLHTTP"); //Pour Internet Explorer 
+    else 
+        return(false);
+
+    if (obj.overrideMimeType) 
+        obj.overrideMimeType("text/xml"); //Évite un bug de Safari
+
+    obj.open("GET", fichier, false);
+    obj.send(null);
+
+    if(obj.readyState == 4) 
+        return(obj.responseText);
+    else 
+        return(false);
+}

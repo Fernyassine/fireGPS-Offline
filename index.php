@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css">
     <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css">
     <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css">
-    <link rel="stylesheet" href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
+    <link rel="stylesheet" href="assets/css/leaflet.groupedlayercontrol.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
 	<link rel="stylesheet" href="assets/css/leaflet.compass.css" />
@@ -77,7 +77,15 @@
                   <li><a href="data/subways.geojson" download="subways.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Métros</a></li>
                   <li><a href="data/DOITT_THEATER_01_13SEPT2010.geojson" download="theaters.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Théâtres</a></li>
                   <li><a href="data/DOITT_MUSEUM_01_13SEPT2010.geojson" download="museums.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Musées</a></li>
-                  <li><a href="" download="" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>Cartes</a></li>
+                  <li><a href="" download="" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in" id="mapToDl"><i class="fa fa-download"></i>&nbsp;&nbsp;Cartes</a></li>
+                </ul>
+            </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" id="downloadDrop" href="#" role="button" data-toggle="dropdown"><i class="fa fa-cloud-download white"></i>&nbsp;&nbsp;Charger <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="paris.json" onclick="loadMap(id)"><i class="fa fa-download"></i>&nbsp;&nbsp;Paris</a></li>
+                  <li><a href="#" id="corses.json" onclick="loadMap(id)"><i class="fa fa-download"></i>&nbsp;&nbsp;Corses</a></li>
+                  <li><a href="#" id="normandie.json" onclick="loadMap(id)"><i class="fa fa-download"></i>&nbsp;&nbsp;Normandie</a></li>
                 </ul>
             </li>
           </ul>
@@ -173,31 +181,6 @@
                 <p>Les musées<a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank"> de Paris</a></p>
               </div>
             </div>
-              
-              
-              
-              <!-- Test -->
-              <div>
-              	<tr><td>Text to Save:</td></tr>
-                <tr>
-                    <td colspan="3">
-                        <textarea id="inputTextToSave" style="width:512px;height:256px"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Filename to Save As:</td>
-                    <td><input id="inputFileNameToSaveAs"></input></td>
-                    <td><button onclick="saveTextAsFile()">Save Text to File</button></td>
-                </tr>
-                <tr>
-                    <td>Select a File to Load:</td>
-                    <td><input type="file" id="fileToLoad"></td>
-                    <td><button onclick="loadFileAsText()">Load Selected File</button><td>
-                </tr>
-            </div>
-              
-              <!-- FIN Test -->
-              
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -221,8 +204,8 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-	 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+      
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.5/typeahead.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
@@ -230,8 +213,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"></script>
-	<script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
-    
+	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
+	<script src="assets/js/leaflet.groupedlayercontrol.js"></script>
+      
+    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>  
+      
 	<script src="assets/js/Control.Geocoder.js"></script>
 	
 	<script src="assets/js/cordova-2.3.0.js"></script>
@@ -240,6 +226,9 @@
     <script src="assets/js/leaflet-routing-machine-2.6.1/dist/leaflet-routing-machine.js"></script>
     <script src="assets/js/leaflet-routing-machine-2.6.1/src/L.Routing.Localization.js"></script>
     
+    <script src="assets/js/osm_geojson.js"></script>
+    <script src="assets/js/leaflet.filelayer.js"></script>
+      
     <script src="assets/js/app.js"></script>
   </body>
 </html>
